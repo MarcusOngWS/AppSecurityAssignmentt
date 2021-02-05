@@ -29,48 +29,48 @@ namespace AppSecurityAssignment
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
-            string pwd = tb_password.Text.ToString().Trim();
-            string userid = tb_email.Text.ToString().Trim();
-            SHA512Managed hashing = new SHA512Managed();
-            string dbHash = getDBHash(userid);
-            string dbSalt = getDBSalt(userid);
-            try
-            {
-                if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
+            
+                string pwd = tb_password.Text.ToString().Trim();
+                string userid = tb_email.Text.ToString().Trim();
+                SHA512Managed hashing = new SHA512Managed();
+                string dbHash = getDBHash(userid);
+                string dbSalt = getDBSalt(userid);
+                try
                 {
-                    string pwdWithSalt = pwd + dbSalt;
-                    byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
-                    string userHash = Convert.ToBase64String(hashWithSalt);
+                    if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
+                    {
+                        string pwdWithSalt = pwd + dbSalt;
+                        byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
+                        string userHash = Convert.ToBase64String(hashWithSalt);
 
-                    if (ValidateCaptcha())
-                    { 
-
-                        if (userHash.Equals(dbHash))
-                        {
-                            Session["LoggedIn"] = tb_email.Text.Trim();
-
-                            string guid = Guid.NewGuid().ToString();
-                            Session["AuthToken"] = guid;
-
-                            Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-
-                            Response.Redirect("Success.aspx", false);
-                        }
-                        else
+                        if (ValidateCaptcha())
                         {
 
-                            Response.Redirect("Login.aspx", false);
+                            if (userHash.Equals(dbHash))
+                            {
+                                Session["LoggedIn"] = tb_email.Text.Trim();
+
+                                string guid = Guid.NewGuid().ToString();
+                                Session["AuthToken"] = guid;
+
+                                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+
+                                Response.Redirect("Success.aspx", false);
+                            }
+                            else
+                            {
+
+                                Response.Redirect("Login.aspx", false);
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-            finally { }
-
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.ToString());
+                }
+                finally { }
+            
         }
 
         protected string getDBHash(string userid)
@@ -99,7 +99,7 @@ namespace AppSecurityAssignment
 
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception(ex.ToString());
             }
@@ -172,10 +172,10 @@ namespace AppSecurityAssignment
 
         }
 
-
-
-
-
+        protected void gotoreg_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Registration.aspx");
+        }
     }
 
 

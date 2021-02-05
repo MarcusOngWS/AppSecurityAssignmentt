@@ -29,42 +29,55 @@ static string finalHash;
         protected void Submit_Click(object sender, EventArgs e)
         {
 
-            
 
+            SqlConnection con = new SqlConnection(MYDBConnectionString);
+            string sql = string.Format("SELECT EMAIL FROM ACCOUNT where Email=@Email");
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@Email", tb_email.Text.Trim());
+            cmd.Connection = con;
+            con.Open();
+            SqlDataReader kk = cmd.ExecuteReader();
 
 
 
             if (tb_password.Text.Length <= 8)
             {
                 passworderror.Text = "Password Cant Be Empty";
+                HttpUtility.HtmlEncode(tb_password);
                 
             }
 
-            if (tb_creditcard.Text.Length < 2)
+            else if (tb_creditcard.Text.Length < 1)
             {
                 passworderror.Text = "Credit card cant be empty";
 
             }
 
-            if (tb_email.Text.Length < 2)
+            else if (tb_email.Text.Length < 1)
             {
                 passworderror.Text = "Email Cant Be Empty";
 
             }
-            if (tb_firstname.Text.Length < 2)
+            else if (tb_firstname.Text.Length < 1)
             {
                 passworderror.Text = "First name Cant Be Empty";
 
             }
-            if (tb_lastname.Text.Length < 2)
+            else if (tb_lastname.Text.Length < 1)
             {
                 passworderror.Text = "Last name Cant Be Empty";
 
             }
-            if (tb_dob.Text.Length < 2)
+            else if (tb_dob.Text.Length < 1)
             {
                 passworderror.Text = "DoB Cant Be Empty";
 
+            }
+            
+            else if (kk.HasRows)
+            {
+                emailerror.Text = "Email already taken";
+                con.Close();
             }
 
 
@@ -105,13 +118,13 @@ static string finalHash;
                         using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
                             cmd.CommandType = CommandType.Text;
-                            cmd.Parameters.AddWithValue("@FirstName", tb_firstname.Text.Trim());
-                            cmd.Parameters.AddWithValue("@LastName", tb_lastname.Text.Trim());
-                            cmd.Parameters.AddWithValue("@CreditCard", encryptData(tb_creditcard.Text.Trim()));
-                            cmd.Parameters.AddWithValue("@Email", tb_email.Text.Trim());
+                            cmd.Parameters.AddWithValue("@FirstName", HttpUtility.HtmlEncode(tb_firstname.Text.Trim()));
+                            cmd.Parameters.AddWithValue("@LastName", HttpUtility.HtmlEncode(tb_lastname.Text.Trim()));
+                            cmd.Parameters.AddWithValue("@CreditCard", encryptData(HttpUtility.HtmlEncode(tb_creditcard.Text.Trim())));
+                            cmd.Parameters.AddWithValue("@Email", HttpUtility.HtmlEncode(tb_email.Text.Trim()));
                             cmd.Parameters.AddWithValue("@PasswordHash", finalHash);
                             cmd.Parameters.AddWithValue("@PasswordSalt", salt);
-                            cmd.Parameters.AddWithValue("@Dob", tb_dob.Text);
+                            cmd.Parameters.AddWithValue("@Dob", HttpUtility.HtmlEncode(tb_dob.Text));
                             
                             cmd.Connection = con;
                             con.Open();
@@ -122,7 +135,7 @@ static string finalHash;
                 }
 
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new Exception(ex.ToString());
             }

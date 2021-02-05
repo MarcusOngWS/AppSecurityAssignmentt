@@ -21,6 +21,8 @@
             <br />
         </div>
         <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="gotoreg" runat="server" OnClick="gotoreg_Click" Text="Register" />
         <br />
         <br />
         <br />

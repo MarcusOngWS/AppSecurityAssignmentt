@@ -51,6 +51,15 @@ namespace AppSecurityAssignment
         protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
+        /// gotoreg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button gotoreg;
+
+        /// <summary>
         /// lblgscore control.
         /// </summary>
         /// <remarks>

@@ -60,6 +60,15 @@ namespace AppSecurityAssignment
         protected global::System.Web.UI.WebControls.TextBox tb_email;
 
         /// <summary>
+        /// emailerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label emailerror;
+
+        /// <summary>
         /// tb_password control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace AppSecurityAssignment
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_password;
+
+        /// <summary>
+        /// lbl_passchecker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_passchecker;
 
         /// <summary>
         /// tb_dob control.

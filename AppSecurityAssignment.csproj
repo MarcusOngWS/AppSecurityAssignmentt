@@ -72,7 +72,9 @@
       <DependentUpon>MYDB.mdf</DependentUpon>
     </Content>
     <Content Include="Captcha.aspx" />
+    <Content Include="CustomError\GenericError.html" />
     <Content Include="CustomError\HTTP404.html" />
+    <Content Include="CustomError\HTTP500.html" />
     <Content Include="Login.aspx" />
     <Content Include="Registration.aspx" />
     <Content Include="Success.aspx" />
